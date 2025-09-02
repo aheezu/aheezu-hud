@@ -1,0 +1,168 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="hud.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+  
+	<div id="ticket">
+		<img src="img/logo.png" alt="Logo" class="ticket-logo">
+		<span id="player-ssn"></span>
+		<span class="separator">|</span>
+		<span id="player-id"></span>
+	</div>
+  
+    <div id="radio-container" style="display: none;">
+      <div class="header">
+        <div class="channel-info">
+          <i class="channel-prefix-icon icon-single fas fa-circle"></i>
+          <i class="channel-prefix-icon icon-multi fas fa-chevron-right"></i>
+          <span class="channel-name"></span>
+        </div>
+        <div class="count-info">
+          <span class="player-count"></span>
+          <i class="channel-count-icon icon-multi fas fa-user-group"></i>
+        </div>
+      </div>
+      <div id="player-list"></div>
+    </div>
+	
+	<div id="progress-container">
+		<div class="progress-icon-wrapper">
+			<i id="progress-icon" class="fa-solid fa-clock"></i>
+		</div>
+		<div class="progress-details">
+			<span id="progress-label"></span>
+			<span id="progress-action"></span>
+		</div>
+		<div id="progress-bar">
+		</div>
+	</div>
+	
+    <div id="bottom-hud" style="display: none;">
+      <i class="fas fa-walkie-talkie"></i>
+      <span id="bottom-channel"></span> | <span id="bottom-count"></span>
+      <i class="fas fa-signal"></i>
+    </div>
+	
+    <div id="notify-container"></div>
+	
+    <div id="location-bar" style="display: none;">
+      <span id="direction-display-box"></span>
+      <div class="location-text">
+        <span id="street-name-box"></span>
+        <span id="sub-street-name-box"></span>
+      </div>
+      <div id="distance-container" style="display: none;">
+        <i class="fas fa-map-marker-alt"></i>
+        <span id="distance-box"></span>
+      </div>
+    </div>
+	
+    <div id="map-container" style="display: none;"></div>
+	
+    <div id="fuel-gauge-bar" class="gauge-bar" style="display: none;">
+      <i class="fas fa-gas-pump fuel-icon"></i>
+      <div class="segment-bar-container" id="fuel-segments"></div>
+    </div>
+	
+    <div id="speedometer-bar" class="gauge-bar" style="display: none;">
+      <div class="segment-bar-container" id="speed-segments"></div>
+      <div class="speed-text">
+        <span id="speed-value">000</span>
+        <span id="speed-unit">KMH</span>
+      </div>
+    </div>
+	
+    <div id="status-hud" style="display: none;">
+      <div class="status-circle" id="health">
+        <svg class="progress-ring">
+          <circle class="progress-ring-bg" r="22" cx="25" cy="25" />
+          <circle class="progress-ring-circle" r="22" cx="25" cy="25" />
+        </svg>
+        <i class="fas fa-heartbeat icon"></i>
+      </div>
+      <div class="status-circle" id="armor">
+        <svg class="progress-ring">
+          <circle class="progress-ring-bg" r="22" cx="25" cy="25" />
+          <circle class="progress-ring-circle" r="22" cx="25" cy="25" />
+        </svg>
+        <i class="fas fa-shield-alt icon"></i>
+      </div>
+      <div class="status-circle" id="hunger">
+        <svg class="progress-ring">
+          <circle class="progress-ring-bg" r="22" cx="25" cy="25" />
+          <circle class="progress-ring-circle" r="22" cx="25" cy="25" />
+        </svg>
+        <i class="fas fa-pizza-slice icon"></i>
+      </div>
+      <div class="status-circle" id="thirst">
+        <svg class="progress-ring">
+          <circle class="progress-ring-bg" r="22" cx="25" cy="25" />
+          <circle class="progress-ring-circle" r="22" cx="25" cy="25" />
+        </svg>
+        <i class="fas fa-tint icon"></i>
+      </div>
+      <div class="status-circle" id="voice">
+        <svg class="progress-ring">
+          <circle class="progress-ring-bg" r="22" cx="25" cy="25" />
+          <circle class="progress-ring-circle" r="22" cx="25" cy="25" />
+        </svg>
+        <i class="fas fa-microphone icon"></i>
+      </div>
+
+     
+      <div class="status-circle" id="progress-bar" style="display: none;">
+        <svg class="progress-ring">
+          <circle class="progress-ring-bg" r="22" cx="25" cy="25" />
+          <circle class="progress-ring-circle" r="22" cx="25" cy="25" />
+        </svg>
+        <div class="icon progress-text-wrapper">
+            <span class="progress-text">0%</span>
+        </div>
+      </div>
+      </div>
+	  
+    <div id="settings-panel" style="display: none;">
+      <h2>Ustawienia HUD</h2>
+      <p class="settings-subtitle">Dostosuj interfejs do swoich preferencji.</p>
+      <div class="color-settings-list">
+        <div class="setting-row">
+          <label for="health-color">Zdrowie</label>
+          <input type="color" id="health-color" data-status="health">
+        </div>
+        <div class="setting-row">
+          <label for="armor-color">Pancerz</label>
+          <input type="color" id="armor-color" data-status="armor">
+        </div>
+        <div class="setting-row">
+          <label for="hunger-color">Głód</label>
+          <input type="color" id="hunger-color" data-status="hunger">
+        </div>
+        <div class="setting-row">
+          <label for="thirst-color">Pragnienie</label>
+          <input type="color" id="thirst-color" data-status="thirst">
+        </div>
+        <div class="setting-row">
+          <label for="voice-color">Głos</label>
+          <input type="color" id="voice-color" data-status="voice">
+        </div>
+       
+        <div class="setting-row">
+            <label for="progress-color">Progres:</label>
+            <input type="color" id="progress-color" data-status="progress">
+        </div>
+      </div>
+	  
+	  
+      <div class="buttons-container">
+        <button id="save-colors">Zapisz</button>
+        <button id="reset-colors">Ustaw domyślne</button>
+        <button id="cancel-changes">Anuluj</button>
+      </div>
+    </div>
+    <script src="hud.js"></script>
+  </body>
+</html>
